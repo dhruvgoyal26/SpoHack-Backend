@@ -29,6 +29,7 @@ YTDL_OPTIONS_STREAM = {
     'format': 'bestaudio[ext=m4a]/bestaudio/best',
     'noplaylist': True,
     'skip_download': True,
+    'extractor_args': {'youtube': {'player_client': ['android', 'ios']}},
 }
 
 @app.get("/api/search")
@@ -115,4 +116,5 @@ def serve_index():
     return HTMLResponse("<h1>index.html not found in public/ directory</h1>")
 
 if __name__ == "__main__":
-    uvicorn.run("server:app", host="0.0.0.0", port=8000, reload=True)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("server:app", host="0.0.0.0", port=port, reload=True)
